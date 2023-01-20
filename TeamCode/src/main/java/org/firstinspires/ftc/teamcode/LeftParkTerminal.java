@@ -22,7 +22,9 @@ public class LeftParkTerminal extends LinearOpMode {
         telemetry.update();
 
         System.out.println("Initialize Robot");
+
         Wall_E.InitializeRobot(hardwareMap);
+
         System.out.println("Robot Initialized");
 
         telemetry.addData("Status", "Ready!");

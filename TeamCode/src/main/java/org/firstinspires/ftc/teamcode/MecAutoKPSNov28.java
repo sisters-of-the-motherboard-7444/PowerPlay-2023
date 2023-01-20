@@ -38,7 +38,7 @@ public class MecAutoKPSNov28 extends LinearOpMode {
         Thread.sleep(500);
         Wall_E.DriveSideways(1,1500,-1); //Drive Right
         Thread.sleep(500);
-        Wall_E.DiagonolForward(.5, 1000, -1); //Backward
+        Wall_E.DiagonalForward(.5, 1000, -1); //Backward
         Thread.sleep(250);
         //BumbleBee.CenterSpin(1,800,-1); //Turn Left
         //Thread.sleep(250);
