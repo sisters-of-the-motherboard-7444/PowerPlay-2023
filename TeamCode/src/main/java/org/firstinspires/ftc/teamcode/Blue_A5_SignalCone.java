@@ -31,7 +31,6 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.ColorSensor;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.openftc.apriltag.AprilTagDetection;
@@ -43,21 +42,15 @@ import java.util.ArrayList;
 
 /*
  *
- * This is an example LinearOpMode that shows how to use
- * a Modern Robotics Color Sensor.
- *
- * The op mode assumes that the color sensor
- * is configured with a name of "sensor_color".
- *
- * You can use the X button on gamepad1 to toggle the LED on and off.
- *
- * Use Android Studio to Copy this Class, and Paste it into your team's code folder with a new name.
- * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list
+ * This Autonomous code begins on blue side in field tile F5
+ * The robot will read the signal sleeve and move to the correct parking location
  */
-@Autonomous(name = "KPS: TileF2Start", group = "Sensor")
+
+@Autonomous(name = "Blue_A5_SignalCone", group = "Sensor")
+
 //@Disabled
 
-public class KPSOpenCVAutoTileF2 extends LinearOpMode {
+public class Blue_A5_SignalCone extends LinearOpMode {
 
   HardwarePowerPlay Wall_E = new HardwarePowerPlay();
 
@@ -189,40 +182,31 @@ public class KPSOpenCVAutoTileF2 extends LinearOpMode {
         //place cone in terminal
         Wall_E.StopMotion(1500);
 
-        Wall_E.DriveSideways(.4, 800, -1); //Forward Motion
-        Thread.sleep(1000);
+        Wall_E.DriveSideways(.75, 1000, -1); //right
 
-        //move to Section 1
-        Wall_E.DriveSideways(.4, 100, 1); //Forward Motion
+        Wall_E.DriveStraight(.1, 200,1);
 
-        Wall_E.StopMotion(400);
-
-        Wall_E.DriveStraight(.5, 500, 1);
-
-        Wall_E.StopMotion(1000);
-
-        //Rotate 90 degrees (requirement for autonomous
         Wall_E.CenterSpin(0.5, 250, 1);
 
-        Wall_E.StopMotion(1500);
+        Thread.sleep(1000);
 
       }
 
       if (signalCone == 2) {
 
         //place cone in terminal
-        Wall_E.DriveSideways(.6, 2000, -1); //Forward Motion
-        Thread.sleep(1500);
+        //Wall_E.DriveSideways(.6, 2000, -1); //Forward Motion
+        //Thread.sleep(1500);
 
         //move to Section 2
-        Wall_E.DriveSideways(.6, 2000, 1);
+        //Wall_E.DriveSideways(.6, 2000, 1);
 
-        Wall_E.StopMotion(1500);
+        //Wall_E.StopMotion(1500);
 
         //Rotate 90 degrees (requirement for autonomous
-        Wall_E.CenterSpin(0.5, 500, 1);
+        //Wall_E.CenterSpin(0.5, 500, 1);
 
-        Wall_E.StopMotion(1500);
+        //Wall_E.StopMotion(1500);
 
       }
 
@@ -238,7 +222,7 @@ public class KPSOpenCVAutoTileF2 extends LinearOpMode {
         //Wall_E.StopMotion(1500);
 
         //Rotate 90 degrees (requirement for autonomous
-        Wall_E.CenterSpin(0.5, 2500, 1);
+        //Wall_E.CenterSpin(0.5, 2500, 1);
 
         //Wall_E.StopMotion(1500);
 

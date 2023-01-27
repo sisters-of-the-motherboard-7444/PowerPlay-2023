@@ -30,6 +30,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.ColorSensor;
@@ -56,7 +57,8 @@ import java.util.ArrayList;
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list
  */
 @Autonomous(name = "KPS: OpenCV", group = "Sensor")
-//@Disabled
+@Disabled
+
 public class KPSOpenCVAuto extends LinearOpMode {
 
   HardwarePowerPlay Wall_E = new HardwarePowerPlay();

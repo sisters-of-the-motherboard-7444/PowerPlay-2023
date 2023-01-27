@@ -6,13 +6,16 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp
 //@Disabled
 
 public class FieldCentricTeleOpPowerPlay extends LinearOpMode {
 
-    @Override
+    //@Override
+
+
 
     public void runOpMode() throws InterruptedException {
 
@@ -22,6 +25,8 @@ public class FieldCentricTeleOpPowerPlay extends LinearOpMode {
         DcMotor motorBackLeft = hardwareMap.dcMotor.get("motorBackLeft");
         DcMotor motorFrontRight = hardwareMap.dcMotor.get("motorFrontRight");
         DcMotor motorBackRight = hardwareMap.dcMotor.get("motorBackRight");
+
+        Servo claw=hardwareMap.servo.get("claw");
 
         // Reverse the right side motors
         // Reverse left motors if you are using NeveRests
@@ -66,6 +71,20 @@ public class FieldCentricTeleOpPowerPlay extends LinearOpMode {
             motorBackLeft.setPower(backLeftPower);
             motorFrontRight.setPower(frontRightPower);
             motorBackRight.setPower(backRightPower);
+
+            //trigger indicators
+            //float isLTpressed = gamepad1.left_trigger;
+            //float isRTpressed = gamepad1.right_trigger;
+
+            if(gamepad1.right_bumper){
+                //open
+                claw.setPosition(0);
+            } else if(gamepad1.left_bumper){
+                //close
+                claw.setPosition(.8);
+            }
+
+
         }
     }
 }

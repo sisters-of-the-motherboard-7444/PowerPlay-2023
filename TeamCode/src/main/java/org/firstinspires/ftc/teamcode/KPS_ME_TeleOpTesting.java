@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -23,12 +24,14 @@ public class KPS_ME_TeleOpTesting extends LinearOpMode {
         DcMotor motorBackRight = hardwareMap.dcMotor.get("motorBackRight");
         DcMotor lift = hardwareMap.dcMotor.get("lift");
 
-        // Reverse the right side motors
+
+
+        // Reverse the right side motors for goBilda
         // Reverse left motors if you are using NeveRests
         motorFrontRight.setDirection(DcMotorSimple.Direction.REVERSE); //Competition Bot
         motorBackRight.setDirection(DcMotorSimple.Direction.REVERSE);  //Competition Bot
         //motorBackLeft.setDirection(DcMotorSimple.Direction.REVERSE);  //Practice Bot
-       // motorFrontLeft.setDirection(DcMotorSimple.Direction.REVERSE);  //Practice Bot
+        //motorFrontLeft.setDirection(DcMotorSimple.Direction.REVERSE);  //Practice Bot
 
         //Lift Motor
         lift.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -44,13 +47,13 @@ public class KPS_ME_TeleOpTesting extends LinearOpMode {
         int liftGroundPosition = 50;
 
         // position of dr4b when it is **low
-        int liftLowPosition =200;
+        int liftLowPosition =75;
 
         // position of dr4b when it is **mid
-        int liftMidPosition = 450;
+        int liftMidPosition = 125;
 
         // position of dr4b when it is **high
-        int liftHighPosition = 600;
+        int liftHighPosition = 175;
 
         // sets the starting position of the arm to the down position
         lift.setTargetPosition(liftGroundPosition);
@@ -70,7 +73,9 @@ public class KPS_ME_TeleOpTesting extends LinearOpMode {
         if (isStopRequested()) return;
 
         while (opModeIsActive()) {
-            double y = -gamepad1.left_stick_y; // Remember, this is reversed!
+
+            // Remember, this is reversed! (original code had -gamepad1 on double y= took out in 22-23
+            double y = gamepad1.left_stick_y;
             double x = gamepad1.left_stick_x * 1.1; // Counteract imperfect strafing
             double rx = gamepad1.right_stick_x;
 
@@ -96,16 +101,17 @@ public class KPS_ME_TeleOpTesting extends LinearOpMode {
 
             // if the x button is pressed, move to **ground
             if (gamepad1.x) {
-                lift.setPower(.5);
                 lift.setTargetPosition(liftGroundPosition);
-                lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);        }
+                lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                lift.setPower(.5);
+            }
 
             // if the y button is pressed, move to **high
             if (gamepad1.y) {
-                lift.setPower(.5);
                 lift.getCurrentPosition();
                 lift.setTargetPosition(liftHighPosition);
                 lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                lift.setPower(.5);
             }
             //else {
             //   rightLift.setPower(0);
@@ -114,18 +120,17 @@ public class KPS_ME_TeleOpTesting extends LinearOpMode {
 
             // if the b button is pressed, move to **mid
             if (gamepad1.b) {
-                lift.setPower(.5);
                 lift.setTargetPosition(liftMidPosition);
                 lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                lift.setPower(.5);
             }
 
             // if the a button is pressed, move to **low
             if (gamepad1.a) {
-                //lift.setPower(.5);
                 lift.setTargetPosition(liftLowPosition);
-                lift.setPower(0.5)
-;                lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-               // lift.setPower(0.5);
+                lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                //lift.setPower(0.5);
+                lift.setPower(0);
             }
 
             // get the current position of the motor
@@ -142,8 +147,20 @@ public class KPS_ME_TeleOpTesting extends LinearOpMode {
 
             telemetry.update();
 
-        }
+            //manually move lift up
+            if (gamepad1.left_bumper) {
+                lift.setPower(-.25);
+            }
+
+            //manually move lift down
+            if (gamepad1.right_bumper) {
+                lift.setPower(.25);
+            }
 
 
-    }
+
+        } //end of active op mode
+
+
+    } // end of run op mode
 }

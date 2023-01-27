@@ -29,21 +29,15 @@
 
 package org.firstinspires.ftc.teamcode;
 
-import android.app.Activity;
-import android.graphics.Color;
-import android.view.View;
-
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.ColorSensor;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.openftc.apriltag.AprilTagDetection;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
-import org.openftc.easyopencv.OpenCvInternalCamera2;
 
 import java.util.ArrayList;
 
@@ -60,12 +54,16 @@ import java.util.ArrayList;
  * Use Android Studio to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list
  */
-@TeleOp(name = "Sensor: OpenCV", group = "Sensor")
-@Disabled
+@Autonomous(name = "Red_F2_LiftSignal_Cone_Terminal", group = "Sensor")
+//@Disabled
 
-public class KCKOpenCV extends LinearOpMode {
+public class Red_F2_Lift_Signal_PreLoadCone extends LinearOpMode {
 
-  ColorSensor colorSensor;    // Hardware Device Object
+  HardwarePowerPlay Wall_E = new HardwarePowerPlay();
+  public DcMotor lift;
+
+  //ColorSensor colorSensor;    // Hardware Device Object
+
   private OpenCvCamera webcam;
   AprilTagDetectionPipeline aprilTagDetectionPipeline;
 
@@ -74,7 +72,7 @@ public class KCKOpenCV extends LinearOpMode {
   // Lens intrinsics
   // UNITS ARE PIXELS
   // NOTE: this calibration is for the C920 webcam at 800x448.
-  // You will need to do your own calibration for other configurations!
+  // You will need to do your own calibration* for other configurations!
   double fx = 578.272;
   double fy = 578.272;
   double cx = 402.145;
@@ -91,12 +89,15 @@ public class KCKOpenCV extends LinearOpMode {
   final int THRESHOLD_NUM_FRAMES_NO_DETECTION_BEFORE_LOW_DECIMATION = 4;
 
   @Override
-  public void runOpMode() {
+  public void runOpMode() throws InterruptedException {
+
 
     // get a reference to our ColorSensor object.
-    colorSensor = hardwareMap.get(ColorSensor.class, "sensor_color");
+    //colorSensor = hardwareMap.get(ColorSensor.class, "sensor_color");
 
     //get a reference to our Webcam
+
+    Wall_E.InitializeRobot(hardwareMap);
 
     int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
     webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
@@ -114,6 +115,7 @@ public class KCKOpenCV extends LinearOpMode {
         /*
          * This will be called if the camera could not be opened
          */
+        telemetry.addLine(String.format("\nCamera had an error=%d", errorCode));
       }
     });
 
@@ -135,6 +137,9 @@ public class KCKOpenCV extends LinearOpMode {
       ArrayList<AprilTagDetection> detections = aprilTagDetectionPipeline.getDetectionsUpdate();
 
       // If there's been a new frame...
+
+      int signalCone = 0;
+
       if (detections != null) {
         telemetry.addData("FPS", webcam.getFps());
         telemetry.addData("Overhead ms", webcam.getOverheadTimeMs());
@@ -163,6 +168,11 @@ public class KCKOpenCV extends LinearOpMode {
           }
 
           for (AprilTagDetection detection : detections) {
+            // TODO: make info accessible outside of this class: int aprilTagId = detection.id;
+
+            signalCone = 0; //Check
+            signalCone = detection.id;//Check
+
             telemetry.addLine(String.format("\nDetected tag ID=%d", detection.id));
             telemetry.addLine(String.format("Translation X: %.2f feet", detection.pose.x * FEET_PER_METER));
             telemetry.addLine(String.format("Translation Y: %.2f feet", detection.pose.y * FEET_PER_METER));
@@ -175,6 +185,77 @@ public class KCKOpenCV extends LinearOpMode {
 
         telemetry.update();
       }
+
+      if (signalCone == 1) {
+
+        telemetry.addLine(String.format("AprilTag = ", signalCone));
+
+        //place cone in terminal
+        Wall_E.StopMotion(1500);
+        Thread.sleep(250);
+
+        Wall_E.DriveSideways(.75, 500, 1); //Forward
+
+        //move to stack
+        Wall_E.DriveStraight(0.5,2000,1);
+        Wall_E.CenterSpin(0.5, 2500, -1);
+
+        Wall_E.moveLift(0.25,500,1);
+        lift.setPower(0);//
+
+        Wall_E.StopMotion(1500);
+
+        Thread.sleep(1000);
+
+      }
+
+      if (signalCone == 2) {
+
+        telemetry.addLine(String.format("AprilTag = ", signalCone));
+
+        ///place cone in terminal
+        Wall_E.StopMotion(1500);
+
+        Wall_E.DriveStraight(.75, 500, 1); //Forward
+
+        //move to Section 2
+        Wall_E.DriveStraight(.5, 1200, -1);
+
+        //park in signal 2 location (first block)
+        Wall_E.DriveSideways(0.5, 1250, -1);
+
+        Wall_E.CenterSpin(0.5,850,1);
+
+        Wall_E.StopMotion(1500);
+
+      }
+
+      if (signalCone == 3) {
+
+        telemetry.addLine(String.format("AprilTag = ", signalCone));
+
+        ///place cone in terminal
+        Wall_E.StopMotion(1500);
+
+        Wall_E.DriveStraight(.75, 500, 1); //Forward
+
+        //move to Section 3
+        Wall_E.DriveStraight(.75, 1250, -1);
+
+        //park in signal 2 location (first block)
+        Wall_E.DriveSideways(0.75, 1250, -1);
+
+        Wall_E.StopMotion(1500);
+
+        Wall_E.CenterSpin(0.5,850,1);
+
+      }
+
+      if( signalCone == 0) {
+        Wall_E.moveLift(0.75, 1000,1);
+
+      }
+
 
       sleep(20);
     }

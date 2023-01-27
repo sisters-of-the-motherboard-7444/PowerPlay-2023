@@ -4,12 +4,14 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 //REMINDER -- Battery Level effects Motor Power which effects timing
+//This auto code will start with robot parked on red F5 location
+//and park in substation
 
-@Autonomous (name = "Right Park Substation")
+@Autonomous (name = "Red_F5_Substation")
 
 //@Disabled
 
-public class RightParkSubstation extends LinearOpMode {
+public class Red_F5_Start_Substation extends LinearOpMode {
 
     HardwarePowerPlay Wall_E = new HardwarePowerPlay();
 

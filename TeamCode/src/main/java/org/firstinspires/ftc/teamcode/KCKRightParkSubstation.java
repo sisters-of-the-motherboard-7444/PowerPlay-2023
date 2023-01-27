@@ -1,13 +1,14 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 //REMINDER -- Battery Level effects Motor Power which effects timing
 
 @Autonomous (name = "KCK Right Park Substation")
 
-//@Disabled
+@Disabled
 
 public class KCKRightParkSubstation extends LinearOpMode {
 
