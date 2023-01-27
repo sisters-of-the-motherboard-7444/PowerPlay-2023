@@ -180,13 +180,11 @@ public class Blue_A5_SignalCone extends LinearOpMode {
       if (signalCone == 1) {
 
         //place cone in terminal
-        Wall_E.StopMotion(1500);
-
-        Wall_E.DriveSideways(.75, 1000, -1); //right
-
-        Wall_E.DriveStraight(.1, 200,1);
-
-        Wall_E.CenterSpin(0.5, 250, 1);
+        Wall_E.DriveSideways(.6, 1000, -1); //left
+        Thread.sleep(500);
+        Wall_E.DriveStraight(.6, 950,-1);
+        Thread.sleep(500);
+        //Wall_E.CenterSpin(0.5, 250, 1);
 
         Thread.sleep(1000);
 
@@ -195,8 +193,8 @@ public class Blue_A5_SignalCone extends LinearOpMode {
       if (signalCone == 2) {
 
         //place cone in terminal
-        //Wall_E.DriveSideways(.6, 2000, -1); //Forward Motion
-        //Thread.sleep(1500);
+        Wall_E.DriveStraight(.6, 95, -1); //Forward Motion
+        Thread.sleep(200);
 
         //move to Section 2
         //Wall_E.DriveSideways(.6, 2000, 1);
@@ -204,27 +202,26 @@ public class Blue_A5_SignalCone extends LinearOpMode {
         //Wall_E.StopMotion(1500);
 
         //Rotate 90 degrees (requirement for autonomous
-        //Wall_E.CenterSpin(0.5, 500, 1);
-
-        //Wall_E.StopMotion(1500);
+        //Wall_E.CenterSpin(0.6, 250, 1);
+        Wall_E.StopMotion(1500);
 
       }
 
       if (signalCone == 3) {
 
         //place cone in terminal
-        //Wall_E.DriveSideways(.6, 2000, -1); //Forward Motion
-        //Thread.sleep(1500);
+        Wall_E.DriveSideways(.6, 1000, 1); //right
+        Thread.sleep(200);
 
         //move to Section 1
-        //Wall_E.DriveSideways(.6, 2000, 1);
-
+        Wall_E.DriveStraight(.6, 950, -1);
+        Thread.sleep(200);
         //Wall_E.StopMotion(1500);
 
         //Rotate 90 degrees (requirement for autonomous
         //Wall_E.CenterSpin(0.5, 2500, 1);
 
-        //Wall_E.StopMotion(1500);
+        Wall_E.StopMotion(1500);
 
       }
 
