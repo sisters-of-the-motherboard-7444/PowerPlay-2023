@@ -188,26 +188,13 @@ public class Red_F5_SignalCone extends LinearOpMode {
         //move to section 1
         Wall_E.DriveSideways(0.5, 1250, -1);//Go left
         Thread.sleep(1000);
-        Wall_E.DriveStraight(0.5, 1250, -1);
+        Wall_E.DriveStraight(0.5, 1250, 1);
       }
 
       if (signalCone == 2) {
         //move to section 2
-        Wall_E.DriveStraight(0.5,1250,-1);
+        Wall_E.DriveStraight(0.5,1250,1);
 
-        //place cone in terminal
-        //Wall_E.DriveSideways(.6, 2000, -1); //Forward Motion
-        //Thread.sleep(1500);
-
-        //move to Section 2
-        //Wall_E.DriveSideways(.6, 2000, 1);
-
-        //Wall_E.StopMotion(1500);
-
-        //Rotate 90 degrees (requirement for autonomous
-        //Wall_E.CenterSpin(0.5, 500, 1);
-
-        //Wall_E.StopMotion(1500);
 
       }
 
@@ -217,7 +204,7 @@ public class Red_F5_SignalCone extends LinearOpMode {
         Thread.sleep(1500);
 
         //move to Section 3
-        Wall_E.DriveStraight(.5, 1500, -1);
+        Wall_E.DriveStraight(.5, 1500, 1);
 
         Wall_E.StopMotion(1500);
 
