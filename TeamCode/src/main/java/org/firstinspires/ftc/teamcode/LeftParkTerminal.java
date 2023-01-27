@@ -1,13 +1,14 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 //REMINDER -- Battery Level effects Motor Power which effects timing
 
 @Autonomous (name = "Left Park Terminal")
 
-//@Disabled
+@Disabled
 
 public class LeftParkTerminal extends LinearOpMode {
 
@@ -22,7 +23,9 @@ public class LeftParkTerminal extends LinearOpMode {
         telemetry.update();
 
         System.out.println("Initialize Robot");
+
         Wall_E.InitializeRobot(hardwareMap);
+
         System.out.println("Robot Initialized");
 
         telemetry.addData("Status", "Ready!");

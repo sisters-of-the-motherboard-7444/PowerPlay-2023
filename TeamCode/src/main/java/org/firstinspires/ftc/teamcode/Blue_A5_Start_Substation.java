@@ -1,16 +1,16 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 //REMINDER -- Battery Level effects Motor Power which effects timing
+//this auto program will move a preloaded cone to the substation
 
-@Autonomous (name = "Left Park Substation")
+@Autonomous (name = "Blue_A5_Substation")
 
-@Disabled
+//@Disabled
 
-public class LeftParkSubstation extends LinearOpMode {
+public class Blue_A5_Start_Substation extends LinearOpMode {
 
     HardwarePowerPlay Wall_E = new HardwarePowerPlay();
 

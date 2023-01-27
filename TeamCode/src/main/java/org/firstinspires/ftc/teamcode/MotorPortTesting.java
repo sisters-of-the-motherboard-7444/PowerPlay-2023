@@ -1,17 +1,18 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp
 //@Disabled
 
-public class FieldCentricTeleOpPowerPlay extends LinearOpMode {
+public class MotorPortTesting extends LinearOpMode {
 
     //@Override
 
@@ -30,10 +31,10 @@ public class FieldCentricTeleOpPowerPlay extends LinearOpMode {
 
         // Reverse the right side motors
         // Reverse left motors if you are using NeveRests
-     //   motorFrontRight.setDirection(DcMotorSimple.Direction.REVERSE); //Competition Bot
-     //   motorBackRight.setDirection(DcMotorSimple.Direction.REVERSE);  //Competition Bot
-        motorBackLeft.setDirection(DcMotorSimple.Direction.REVERSE);  //Practice Bot
-        motorFrontLeft.setDirection(DcMotorSimple.Direction.REVERSE);  //Practice Bot
+        motorFrontRight.setDirection(DcMotorSimple.Direction.REVERSE); //Competition Bot
+        motorBackRight.setDirection(DcMotorSimple.Direction.REVERSE);  //Competition Bot
+        motorBackLeft.setDirection(DcMotorSimple.Direction.FORWARD);  //Practice Bot
+        motorFrontLeft.setDirection(DcMotorSimple.Direction.FORWARD);  //Practice Bot
 
         // Retrieve the IMU from the hardware map
         BNO055IMU imu = hardwareMap.get(BNO055IMU.class, "imu");
@@ -73,8 +74,8 @@ public class FieldCentricTeleOpPowerPlay extends LinearOpMode {
             motorBackRight.setPower(backRightPower);
 
             //trigger indicators
-            //float isLTpressed = gamepad1.left_trigger;
-            //float isRTpressed = gamepad1.right_trigger;
+//            float isLTpressed = gamepad1.left_trigger;
+//            float isRTpressed = gamepad1.right_trigger;
 
             if(gamepad1.right_bumper){
                 //open

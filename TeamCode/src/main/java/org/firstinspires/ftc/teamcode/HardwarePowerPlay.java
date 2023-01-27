@@ -6,7 +6,6 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.hardware.bosch.BNO055IMU;
 
 /**
  * Original created by ashley.peake on 8/30/2018.
@@ -22,18 +21,12 @@ public class HardwarePowerPlay {
     public DcMotor motorFrontRight;
     public DcMotor motorBackRight;
 
+    //lift motor
+    public DcMotor lift;
 
-    //DoubleReverse 4-Bar Lift
-    //public DcMotor leftLift;
-    //public DcMotor rightLift;
-    //public DcMotor leftSlide;
-    //public DcMotor rightSlide;
-
-    //Servos or Claw - CR = continuos Servo
-    //public CRServo sweeperLeft;
-    //public CRServo sweeperRight;
-    //public Servo boxLid;
-    //public CRServo duckSpin;
+    //Servos or Claw - CR = continuous Servo
+    //public CRServo claw;
+    public Servo claw = null;
 
     //Sets variable driveTime as an integer
     int driveTime;
@@ -54,6 +47,7 @@ public class HardwarePowerPlay {
         motorFrontRight= HWMap.dcMotor.get("motorFrontRight");
         motorBackRight= HWMap.dcMotor.get("motorBackRight");
 
+
         // Reverse the right side motors
         // Reverse left motors if you are using NeveRests
         //motorFrontLeft.setDirection(DcMotorSimple.Direction.REVERSE);//set for PracticeBot
@@ -65,18 +59,12 @@ public class HardwarePowerPlay {
         motorBackLeft.setDirection(DcMotorSimple.Direction.REVERSE); //Competition Bot & PracticeBot PowerPlay
 
         
-        //Initialize DoubleReverse 4-Bar Lift
-        //leftLift= HWMap.dcMotor.get("leftLift");
-        //rightLift= HWMap.dcMotor.get("rightLift");
-       // leftLift.setDirection(DcMotorSimple.Direction.REVERSE); //Set for Competition
-        // leftSlide = HWMap.dcMotor.get("leftSlide");
-        //rightSlide = HWMap.dcMotor.get("rightSlide");
+        //Initialize Lift
+        lift=HWMap.dcMotor.get("lift");
 
         //Initialize Servos
-        //sweeperLeft = HWMap.crservo.get("sweeperLeft");
-        //sweeperRight = HWMap.crservo.get("sweeperRight");
-        //boxLid = HWMap.servo.get("boxLid");
-        //duckSpin = HWMap.crservo.get("duckSpin");
+        //claw = HWMap.crservo.get("claw");
+        claw = HWMap.servo.get("claw");
 
     }  //end of method InitializeRobot
 
@@ -137,13 +125,13 @@ public class HardwarePowerPlay {
 
     } //Ends DriveSideways Method
 
-    public void DiagonolForward(double power, long totalSeconds, int Direction) throws InterruptedException {
+    public void DiagonalForward(double power, long totalSeconds, int Direction) throws InterruptedException {
 
         //For driving forward in a diagonal direction
         // declare variables for this method (power, totalSeconds (milliseconds) & Direction)
         //For right motion set direction = 1 (In method call)
         //For left motion set direction = -1 (In method call)
-        //example: DiagonolForward(.8, 3, 1) means drive straight at 80% power, for 3 seconds, in forward right direction
+        //example: DiagonalForward(.8, 3, 1) means drive straight at 80% power, for 3 seconds, in forward right direction
         //example: DiagonalForward(.75, 5, -1) means drive straight at 75% power, for 5 seconds, in forward left direction
 
         if (Direction == 1) {
@@ -176,13 +164,13 @@ public class HardwarePowerPlay {
     } //End Diagonal Forward Method
 
 
-    public void DiagonolBackward(double power, long totalSeconds, int Direction) throws InterruptedException {
+    public void DiagonalBackward(double power, long totalSeconds, int Direction) throws InterruptedException {
 
         //For driving forward in a diagonal direction
         // declare variables for this method (power, totalSeconds (milliseconds) & Direction)
         //For right motion set direction = 1 (In method call)
         //For left motion set direction = -1 (In method call)
-        //example: DiagonolBackward(.8, 3, 1) means drive straight at 80% power, for 3 seconds, in back Right direction
+        //example: DiagonalBackward(.8, 3, 1) means drive straight at 80% power, for 3 seconds, in back Right direction
         //example: DiagonalForward(.75, 5, -1) means drive straight at 75% power, for 5 seconds, in left direction
 
         if (Direction == 1) {
@@ -264,4 +252,18 @@ public class HardwarePowerPlay {
         motorFrontRight.setPower(0.0);
         motorBackRight.setPower(0.0);
     }
+    public void moveLift(double power, long totalSeconds, int Direction) throws InterruptedException{
+        lift.setPower(power * Direction);
+        Thread.sleep(totalSeconds);
+
+        //lift.setPower(0);
+    }
+
+    public void moveClaw(double power, double Direction) throws InterruptedException{
+        claw.setPosition(power * Direction);
+        //Thread.sleep(totalSeconds);
+
+        //lift.setPower(0);
+    }
+
 }
