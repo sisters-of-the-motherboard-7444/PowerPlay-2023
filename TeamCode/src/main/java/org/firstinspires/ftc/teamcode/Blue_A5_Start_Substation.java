@@ -5,12 +5,13 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 //REMINDER -- Battery Level effects Motor Power which effects timing
+//this auto program will move a preloaded cone to the substation
 
-@Autonomous (name = "Right Park Substation")
+@Autonomous (name = "Blue_A5_Substation")
 
 //@Disabled
 
-public class RightParkSubstation extends LinearOpMode {
+public class Blue_A5_Start_Substation extends LinearOpMode {
 
     HardwarePowerPlay Wall_E = new HardwarePowerPlay();
 
@@ -32,7 +33,7 @@ public class RightParkSubstation extends LinearOpMode {
 
         waitForStart();
 
-        Wall_E.DriveSideways(.6, 1000, -1); //Forward Motion
+        Wall_E.DriveSideways(.6, 1000, 1); //Forward Motion
         Thread.sleep(1500);
        // Wall_E.StopMotion(1500);
         //drop cone

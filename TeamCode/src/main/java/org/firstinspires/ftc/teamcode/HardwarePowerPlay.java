@@ -264,4 +264,23 @@ public class HardwarePowerPlay {
         motorFrontRight.setPower(0.0);
         motorBackRight.setPower(0.0);
     }
+<<<<<<< Updated upstream
+=======
+    public void moveLift(double power, long totalSeconds, int Direction) throws InterruptedException{
+        lift.setPower(power * Direction);
+        Thread.sleep(totalSeconds);
+
+        //lift.setPower(0);
+    }
+
+    public void moveClaw(double Direction) throws InterruptedException{
+        claw.setPosition(Direction);
+        //Thread.sleep(totalSeconds);
+        //position 1 = close clas
+        //position 0.2 is open claw
+
+        //lift.setPower(0);
+    }
+
+>>>>>>> Stashed changes
 }

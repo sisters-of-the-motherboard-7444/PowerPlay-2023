@@ -1,13 +1,19 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp
+@Disabled
 
-public class GameManualZeroTeleop extends LinearOpMode {
+public class IGNORE extends LinearOpMode {
+
+    public DcMotorEx lift;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -17,8 +23,9 @@ public class GameManualZeroTeleop extends LinearOpMode {
         DcMotor motorBackLeft = hardwareMap.dcMotor.get("motorBackLeft");
         DcMotor motorFrontRight = hardwareMap.dcMotor.get("motorFrontRight");
         DcMotor motorBackRight = hardwareMap.dcMotor.get("motorBackRight");
-        //DcMotor leftLift = hardwareMap.dcMotor.get("leftLift");
-       // DcMotor rightLift = hardwareMap.dcMotor.get("rightLift");
+
+        Servo claw=hardwareMap.servo.get("claw");
+        lift = hardwareMap.get(DcMotorEx.class, "lift");
 
         // Reverse the right side motors
         // Reverse left motors if you are using NeveRests
