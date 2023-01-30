@@ -123,7 +123,6 @@ public class PowerPlayTeleOp_Thursday extends LinearOpMode {
             } else if (gamepad2.y) {
                 double power = pid_tick(300, lift.getCurrentPosition());
                 lift.setPower(power);
-
                 //mid position
             } else if (gamepad2.b) {
                 double power = pid_tick(55000, lift.getCurrentPosition());
