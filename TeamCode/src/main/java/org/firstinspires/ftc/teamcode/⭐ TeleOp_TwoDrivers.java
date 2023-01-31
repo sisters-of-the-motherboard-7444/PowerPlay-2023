@@ -18,14 +18,14 @@ public class PowerPlayTeleOp_Thursday extends LinearOpMode {
 
     public Servo claw;
 
-    //the reason we use DcMotor Ex instead of DcMotor is for extra speed
+    // the reason we use DcMotor Ex instead of DcMotor is for extra speed
     public DcMotorEx lift;
 
-    //here we establish some variables
+    // here we establish some variables
     double liftreset = 0;
     double intergalSum = 0;
-    //this three are the ones that you will tune to improve the PID
-    double kp = .01; //edit to increase to be faster (original .01)
+    // this three are the ones that you will tune to improve the PID
+    double kp = .01; // edit to increase to be faster
     double ki = 0;
     double kd = 0;
     double reach;
@@ -35,12 +35,10 @@ public class PowerPlayTeleOp_Thursday extends LinearOpMode {
 
     @Override
 
-
-
     public void runOpMode() throws InterruptedException {
 
-        // Declare our motors
-        // Make sure your ID's match your configuration
+        // declare our motors
+        // make sure your id's match your configuration
         DcMotor motorFrontLeft = hardwareMap.dcMotor.get("motorFrontLeft");
         DcMotor motorBackLeft = hardwareMap.dcMotor.get("motorBackLeft");
         DcMotor motorFrontRight = hardwareMap.dcMotor.get("motorFrontRight");
@@ -68,12 +66,12 @@ public class PowerPlayTeleOp_Thursday extends LinearOpMode {
         lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         lift.setDirection(DcMotorSimple.Direction.FORWARD);
 
-        // Retrieve the IMU from the hardware map
+        // retrieve the IMU from the hardware map
         BNO055IMU imu = hardwareMap.get(BNO055IMU.class, "imu");
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
-        // Technically this is the default, however specifying it is clearer
+        // technically this is the default, however specifying it is clearer
         parameters.angleUnit = BNO055IMU.AngleUnit.RADIANS;
-        // Without this, data retrieving from the IMU throws an exception
+        // without this, data retrieving from the IMU throws an exception
         imu.initialize(parameters);
 
         waitForStart();
@@ -114,56 +112,46 @@ public class PowerPlayTeleOp_Thursday extends LinearOpMode {
             motorFrontRight.setPower(frontRightPower);
             motorBackRight.setPower(backRightPower);
 
-            //ground position
-            if (gamepad2.x) {
-                //double power = pid_tick(0,lift.getCurrentPosition());
-                //lift.setPower(power);
-                groundLevel(0.35, 5, -1);
-                //high position
-            } else if (gamepad2.y) {
-                double power = pid_tick(300, lift.getCurrentPosition());
-                lift.setPower(power);
-                //mid position
-            } else if (gamepad2.b) {
-                double power = pid_tick(55000, lift.getCurrentPosition());
-                lift.setPower(power);
-                //low position
-            } else if (gamepad2.a) {
-                double power = pid_tick(30000, lift.getCurrentPosition());
-                lift.setPower(power);
-            }
+           int goalPos;
 
-            // lift.setPower(0);
-//only include this line if you want slides to stay up when button is pressed
-        //    else {
-        //        lift.setPower(0);
-         //   }
+            if (gamepad2.x) { // Ground/0d
+                goalPos = 0;
+            } else if (gamepad2.y) { // High
+                goalPos = HIGH_POSITION;
+            } else if (gamepad2.b) { // Mid
+                goalPos = 55000;
+            } else if (gamepad2.a) { // Low
+                goalPos = 30000;
+            }
+            
+            double power = pid_tick(goalPos, lift.getCurrentPosition());
+            lift.setPower(power);
 
             if (gamepad2.right_bumper) {
-                //open
+                // open
                 claw.setPosition(0.4);
                 telemetry.addData("Servo Position", claw.getPosition());
 
-                //claw.se`tPower(0.2);
+                // claw.setPower(0.2);
                 // Thread.sleep(500);
                 // claw.setPower(0);
             } else if (gamepad2.left_bumper) {
                 //close
                 claw.setPosition(1);
                 telemetry.addData("Servo Position", claw.getPosition());
-                //claw.setPower(-0.2);
-                //Thread.sleep(500);
+                // claw.setPower(-0.2);
+                // Thread.sleep(500);
                 // claw.setPower(0);
             } else {
-                //claw.setPower(0);
+                // claw.setPower(0);
             }
 
             telemetry.update();
             telemetry.addData("Servo Position", claw.getPosition());
 
             if (gamepad1.dpad_down) {
-                //stop
-                //claw.setPower(0);
+                // stop
+                // claw.setPower(0);
             }
         }
     }
@@ -180,9 +168,9 @@ public class PowerPlayTeleOp_Thursday extends LinearOpMode {
     }
 
     public void groundLevel(double power, long totalSeconds, int Direction) throws InterruptedException {
-        //lift.setTargetPosition(0);
+        // lift.setTargetPosition(0);
         lift.setPower(power * Direction);
-        //lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        // lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 /*
     public void raiseSlide (double power, double inches, int direction) {
