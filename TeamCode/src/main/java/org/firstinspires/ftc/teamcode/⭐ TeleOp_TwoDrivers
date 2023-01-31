@@ -25,7 +25,7 @@ public class PowerPlayTeleOp_Thursday extends LinearOpMode {
     double liftreset = 0;
     double intergalSum = 0;
     //this three are the ones that you will tune to improve the PID
-    double kp = 1;//edit to increase to be faster (original .01)
+    double kp = .01; //edit to increase to be faster (original .01)
     double ki = 0;
     double kd = 0;
     double reach;
